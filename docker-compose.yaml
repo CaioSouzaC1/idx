@@ -1,0 +1,29 @@
+services:
+  php-nginx:
+    build: .
+    container_name: idx
+    ports:
+      - "8000:80"
+      - "5173:5173"
+    volumes:
+      - ./api:/app
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
+    depends_on:
+      - idx_db
+    user: "${UID}:${GID}"
+
+  idx_db:
+    image: mysql:8.0
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - idx_db_data:/var/lib/mysql
+
+volumes:
+  idx_db_data:
