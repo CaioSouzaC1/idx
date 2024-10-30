@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers\Requests\Category;
+namespace App\Helpers\Requests\Book;
 
-class CategoryIdRuleHelper
+class BookIdRuleHelper
 {
     public static function rule($helperName = 'id'): array
     {
@@ -10,7 +10,7 @@ class CategoryIdRuleHelper
             $helperName => [
                 'required',
                 'string',
-                'exists:categories,id',
+                'exists:books,id',
             ],
         ];
     }

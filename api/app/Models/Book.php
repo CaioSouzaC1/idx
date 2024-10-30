@@ -14,7 +14,7 @@ class Book extends Model
     /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = 'users';
+    protected $table = 'books';
 
     protected $fillable = [
         'title',
