@@ -39,7 +39,7 @@ class CategoryService
         return Category::where('id', $data['id'])->first();
     }
 
-    public function update(array $data)
+    public function update(array $data): bool
     {
         $thumbPath = $data['thumb']->storeAs('/categories', Filename::formatImageName($data['thumb']));
 

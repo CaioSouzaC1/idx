@@ -9,7 +9,7 @@ class ApiException extends Exception
 {
 
     protected $code = 500;
-    protected $message = "Erro inesperado";
+    protected $message = "Unexpected error";
 
     public function render()
     {
