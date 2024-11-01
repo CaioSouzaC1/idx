@@ -21,6 +21,17 @@ class Category extends Model
         'thumb_path'
     ];
 
+    protected $appends = ['full_path'];
+
+    public function getFullPathAttribute(): string
+    {
+        $path = str_replace('public/', '', $this->thumb_path);
+        $path = str_replace(' ', '%20', $path);
+        $path = str_replace('(', '%28', $path);
+        $path = str_replace(')', '%29', $path);
+        return asset('storage/' . $path, false);
+    }
+
 
     public function books(): HasMany
     {
