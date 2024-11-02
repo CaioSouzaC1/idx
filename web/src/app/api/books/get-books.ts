@@ -1,13 +1,16 @@
 import { toast } from "sonner";
 
 import api from "@/app/services/api";
-import { IApiRoot } from "@/interfaces/Api";
+import { ISearchParamsRoot } from "@/interfaces/Api";
+import { IGetBooks } from "@/interfaces/Book";
 
-export async function createCategory(data: FormData) {
+export async function getBooks({ page, per_page, search }: ISearchParamsRoot) {
   try {
-    const response = await api.post<IApiRoot>("/category", data, {
-      headers: {
-        "Content-Type": "multipart/formdata",
+    const response = await api.get<IGetBooks>("/book", {
+      params: {
+        page,
+        per_page,
+        search,
       },
     });
     return response.data;

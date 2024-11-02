@@ -3,13 +3,9 @@ import { toast } from "sonner";
 import api from "@/app/services/api";
 import { IApiRoot } from "@/interfaces/Api";
 
-export async function createCategory(data: FormData) {
+export async function deleteBook({ id }: { id: string }) {
   try {
-    const response = await api.post<IApiRoot>("/category", data, {
-      headers: {
-        "Content-Type": "multipart/formdata",
-      },
-    });
+    const response = await api.delete<IApiRoot>(`/book/${id}`);
     return response.data;
   } catch (error: any) {
     console.error(

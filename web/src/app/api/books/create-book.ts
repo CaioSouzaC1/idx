@@ -3,9 +3,9 @@ import { toast } from "sonner";
 import api from "@/app/services/api";
 import { IApiRoot } from "@/interfaces/Api";
 
-export async function createCategory(data: FormData) {
+export async function createBook(data: FormData) {
   try {
-    const response = await api.post<IApiRoot>("/category", data, {
+    const response = await api.post<IApiRoot>("/book", data, {
       headers: {
         "Content-Type": "multipart/formdata",
       },

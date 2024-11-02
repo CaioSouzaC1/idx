@@ -27,8 +27,12 @@ const secondaryVariant = {
 
 export const FileUpload = ({
   onChange,
+  name = "thumb",
+  text = "Thumbnail",
 }: {
   onChange?: (files: File[]) => void;
+  name?: string;
+  text?: string;
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,7 +63,7 @@ export const FileUpload = ({
         className="px-1 py-2 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden">
         <input
           ref={fileInputRef}
-          id="file-upload-handle"
+          id={`file-upload-handle-${name}`}
           type="file"
           onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
           className="hidden"
@@ -68,18 +72,22 @@ export const FileUpload = ({
           <GridPattern />
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="relative z-20 font-sans text-neutral-700 dark:text-neutral-300 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Upload de arquivo
+          <p className="relative z-20 font-sans text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            {text}
           </p>
-          <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
+          <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2 text-center">
             Arraste e solte seu arquivo aqui ou clique para selecionar
           </p>
-          <div className="relative w-full mt-10 mx-auto">
+          <div className="relative w-full mt-4 mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
-                  layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
+                  layoutId={
+                    idx === 0
+                      ? `file-upload-${name}`
+                      : `file-upload-${idx}-${name}`
+                  }
                   className={cn(
                     "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start md:h-24 p-4 mt-4 w-full mx-auto rounded-md",
                     "shadow-sm"
@@ -114,7 +122,7 @@ export const FileUpload = ({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       layout>
-                      modified{" "}
+                      Modificado{" "}
                       {new Date(file.lastModified).toLocaleDateString()}
                     </motion.p>
                   </div>
@@ -138,7 +146,7 @@ export const FileUpload = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="text-neutral-600 flex flex-col items-center">
-                    Drop it
+                    Solte
                     <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
                   </motion.p>
                 ) : (

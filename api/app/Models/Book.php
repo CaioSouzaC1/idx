@@ -25,6 +25,26 @@ class Book extends Model
         'redirect_url'
     ];
 
+    protected $appends = ['full_path', 'pdf_full_path'];
+
+    public function getFullPathAttribute(): string
+    {
+        $path = str_replace('public/', '', $this->thumb_path);
+        $path = str_replace(' ', '%20', $path);
+        $path = str_replace('(', '%28', $path);
+        $path = str_replace(')', '%29', $path);
+        return asset('storage/' . $path, false);
+    }
+
+    public function getPdfFullPathAttribute(): string
+    {
+        $path = str_replace('public/', '', $this->pdf_path);
+        $path = str_replace(' ', '%20', $path);
+        $path = str_replace('(', '%28', $path);
+        $path = str_replace(')', '%29', $path);
+        return asset('storage/' . $path, false);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -36,4 +56,13 @@ class Book extends Model
             ->withPivot('percentage')
             ->withTimestamps();
     }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('withCategory', function ($query) {
+            $query->with('category');
+        });
+    }
+
+
 }

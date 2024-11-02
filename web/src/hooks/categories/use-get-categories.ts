@@ -4,7 +4,7 @@ import { ISearchParamsRoot } from "@/interfaces/Api";
 import { getCategories } from "@/app/api/categories/get-categories";
 import { IGetCategories } from "@/interfaces/Category";
 
-export const useGetAttributes = ({
+export const useGetCategories = ({
   page,
   per_page,
   search,

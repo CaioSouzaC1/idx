@@ -8,7 +8,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
 } from "@/components/ui/breadcrumb";
-import { useGetAttributes } from "@/hooks/categories/use-get-categories";
+import { useGetCategories } from "@/hooks/categories/use-get-categories";
 import { CategoryCard } from "@/components/ui/focus-cards";
 import { useState } from "react";
 import { ICategory } from "@/interfaces/Category";
@@ -16,7 +16,7 @@ import CreateCategoryDialog from "@/components/categories/create-category-dialog
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CategoriesPage() {
-  const { categories } = useGetAttributes({});
+  const { categories } = useGetCategories({});
 
   const [hovered, setHovered] = useState<number | null>(null);
 

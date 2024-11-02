@@ -19,7 +19,7 @@ class BookService
         })->paginate(perPage: $data['per_page'], page: $data['page']);
     }
 
-    public function store(array $data): Book
+    public function store(array $data)
     {
         $thumbPath = $data['thumb']->storeAs('/books/thumbs', Filename::formatImageName($data['thumb']));
         $pdfPath = $data['pdf']->storeAs('/books', Filename::formatImageName($data['pdf']));

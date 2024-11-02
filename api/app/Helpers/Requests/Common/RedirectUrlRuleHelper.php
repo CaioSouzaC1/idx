@@ -12,6 +12,7 @@ class RedirectUrlRuleHelper
         return [
             'redirect_url' => [
                 'sometimes',
+                'nullable',
                 'string',
             ],
         ];

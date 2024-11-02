@@ -32,7 +32,6 @@ class Category extends Model
         return asset('storage/' . $path, false);
     }
 
-
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);

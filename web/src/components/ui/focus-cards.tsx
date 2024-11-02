@@ -97,7 +97,7 @@ export const CategoryCard = ({
 }) => {
   const { mutateAsync: deleteCategoryFn } = useMutation({
     mutationFn: deleteCategory,
-    mutationKey: ["store-sales"],
+    mutationKey: ["delete-category"],
     async onSuccess(data) {
       queryClient.invalidateQueries({
         queryKey: ["get-categories"],
