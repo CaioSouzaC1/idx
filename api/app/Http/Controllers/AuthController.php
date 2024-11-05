@@ -31,7 +31,7 @@ class AuthController extends Controller
             );
         } catch (Throwable $e) {
             throw new ApiException(
-                $e->getMessage() ?? "Erro ao criar usuário",
+                $e->getMessage() ?? "Erro ao criar usuário.",
                 $e->getCode()
             );
         }
@@ -43,10 +43,10 @@ class AuthController extends Controller
 
             $data = $this->authService->login($request->validated());
 
-            return ReturnApi::success($data, "Usuário encontrado com sucesso");
+            return ReturnApi::success($data, "Usuário logado com sucesso!");
         } catch (Throwable $e) {
             throw new ApiException(
-                $e->getMessage() ?? "Erro ao logar usuário",
+                $e->getMessage() ?? "Erro ao logar usuário.",
                 $e->getCode() ?? 500
             );
         }
@@ -56,10 +56,10 @@ class AuthController extends Controller
     {
         try {
             $data = $this->authService->me();
-            return ReturnApi::success($data, "Usuário encontrado");
+            return ReturnApi::success($data, "Usuário encontrado!");
         } catch (Throwable $e) {
             throw new ApiException(
-                $e->getMessage() ?? "Erro ao consultar usuário",
+                $e->getMessage() ?? "Erro ao consultar usuário.",
                 $e->getCode()
             );
         }

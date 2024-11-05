@@ -12,15 +12,8 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(async (request) => {
   const session = await getSession()
   if (session?.token) {
-    request.headers.Authorization = `Bearer ${session.token}`
+    request.headers.Authorization = `Bearer ${session.token}`;
   }
-
-  if (request.method?.toLowerCase() === 'put') {
-    request.method = 'post'
-
-    request.url += '?_method=put'
-  }
-
   return request
 })
 
