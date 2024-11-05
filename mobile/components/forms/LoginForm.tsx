@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema, LoginFormType } from "@/interfaces/User/schema";
@@ -8,17 +8,24 @@ import { useMutation } from "@tanstack/react-query";
 import { IUserLogin } from "@/interfaces/User";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
-import login from "@/app/api/auth/login";
+import login from "~/app/api/auth/login";
 import { Button } from "@/components/ui/button";
+import { Text } from "~/components/ui/text";
+import { TextInput } from "~/components/ui/text-input";
+import { Link, useRouter } from "expo-router";
 
 export default function LoginForm() {
+  const router = useRouter();
+
+  const [isSubmiting, setIsSubmiting] = useState<boolean>(false);
+
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
   });
 
   const { setValue, formState, handleSubmit } = form;
 
-  const { mutateAsync: createCategoryFn } = useMutation({
+  const { mutateAsync: loginFn } = useMutation({
     mutationFn: login,
     mutationKey: ["user-login"],
     async onSuccess(data) {
@@ -29,43 +36,58 @@ export default function LoginForm() {
         text1: data.message,
         text2: "🙋🏻‍♂️",
       });
+      router.push("/home");
+    },
+    async onError() {
+      setIsSubmiting(false);
     },
   });
 
   async function onSubmit(data: LoginFormType) {
-    await createCategoryFn(data);
+    setIsSubmiting(true);
+    await loginFn(data);
   }
 
   return (
-    <View>
-      <Text>E-mail:</Text>
-      <TextInput
-        placeholder="Digite seu e-mail"
-        onChangeText={(text) => setValue("email", text)}
-        style={{ borderBottomWidth: 1, marginBottom: 10 }}
-      />
-      {formState.errors.email && (
-        <Text style={{ color: "red" }}>{formState.errors.email.message}</Text>
-      )}
-
-      <Text>Senha:</Text>
-      <TextInput
-        placeholder="Digite sua senha"
-        secureTextEntry
-        onChangeText={(text) => setValue("password", text)}
-        style={{ borderBottomWidth: 1, marginBottom: 10 }}
-      />
-      {formState.errors.password && (
-        <Text style={{ color: "red" }}>
-          {formState.errors.password.message}
-        </Text>
-      )}
-
-      <Button variant="destructive">
-        <Text>Default</Text>
+    <View className="gap-4">
+      <View>
+        <Text>E-mail:</Text>
+        <TextInput
+          placeholder="Digite seu e-mail"
+          onChangeText={(text) => setValue("email", text)}
+          style={{ borderBottomWidth: 1, marginBottom: 10 }}
+        />
+        {formState.errors.email && (
+          <Text style={{ color: "red" }}>{formState.errors.email.message}</Text>
+        )}
+      </View>
+      <View>
+        <Text>Senha:</Text>
+        <TextInput
+          placeholder="Digite sua senha"
+          secureTextEntry
+          onChangeText={(text) => setValue("password", text)}
+          style={{ borderBottomWidth: 1, marginBottom: 10 }}
+        />
+        {formState.errors.password && (
+          <Text style={{ color: "red" }}>
+            {formState.errors.password.message}
+          </Text>
+        )}
+      </View>
+      <Button
+        disabled={isSubmiting}
+        onPress={handleSubmit(onSubmit)}
+        variant="outline">
+        <Text>Logar</Text>
       </Button>
-
-      <Button onPress={handleSubmit(onSubmit)} />
+      <View className="flex items-end">
+        <Link href={"/home"}>
+          <Button className="!px-0" variant="link">
+            <Text>Criar conta agora</Text>
+          </Button>
+        </Link>
+      </View>
     </View>
   );
 }

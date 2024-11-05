@@ -68,20 +68,22 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <QueryClientProvider client={queryClient}>
-
-      <Stack>
-        <Stack.Screen
-          name='index'
-          options={{
-            title: 'Starter Base',
-            headerRight: () => <ThemeToggle />,
-          }}
-        />
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{
+              title: "Livraria iDX",
+              headerRight: () => <ThemeToggle />,
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
         </Stack>
         <Toast />
-        </QueryClientProvider>
+      </QueryClientProvider>
       <PortalHost />
     </ThemeProvider>
   );
