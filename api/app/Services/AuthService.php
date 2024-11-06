@@ -12,14 +12,15 @@ class AuthService
 {
     public function register($data)
     {
-
-        return User::create(
+        User::create(
             [
                 "name" => $data["name"],
                 "email" => $data["email"],
                 "password"  => Hash::make($data["password"])
             ]
         );
+
+        return $this->login($data);
     }
 
     public function login($data)

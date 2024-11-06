@@ -16,3 +16,13 @@ export const loginFormSchema = z.object({
 });
 
 export type LoginFormType = z.infer<typeof loginFormSchema>;
+
+export const registerFormSchema = loginFormSchema.extend({
+  name: z
+    .string({
+      message: "Nome obrigatório.",
+    })
+    .min(1, "Nome obrigatório."),
+});
+
+export type RegisterFormType = z.infer<typeof registerFormSchema>;

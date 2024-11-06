@@ -8,12 +8,12 @@ import * as React from 'react';
 import { Platform } from 'react-native';
 import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
-import { PortalHost } from '@rn-primitives/portal';
-import { ThemeToggle } from '~/components/ThemeToggle';
-import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '~/lib/react-query';
-import Toast from 'react-native-toast-message';
+import { PortalHost } from "@rn-primitives/portal";
+import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "~/lib/react-query";
+import Toast from "react-native-toast-message";
+import { ThemeToggle } from "~/components/ThemeToggle";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -74,13 +74,19 @@ export default function RootLayout() {
           <Stack.Screen
             name="index"
             options={{
-              title: "Livraria iDX",
-              headerRight: () => <ThemeToggle />,
               headerShown: false,
             }}
           />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
+          <Stack.Screen
+            name="create-account"
+            options={{
+              headerBackVisible: true,
+              title: "Criar Conta",
+              headerRight: () => <ThemeToggle />,
+            }}
+          />
         </Stack>
         <Toast />
       </QueryClientProvider>

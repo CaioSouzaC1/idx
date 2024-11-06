@@ -9,7 +9,10 @@ const Container = React.forwardRef<ViewRef, ViewProps>(
     <TextClassContext.Provider value="text-foreground">
       <View
         ref={ref}
-        className={cn("p-4 bg-secondary/30 w-screen min-h-screen", className)}
+        className={cn(
+          "p-4 bg-secondary/30 w-screen min-h-screen flex-1",
+          className
+        )}
         {...props}
       />
     </TextClassContext.Provider>

@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema, LoginFormType } from "@/interfaces/User/schema";
-import api from "@/services/api";
 import { useMutation } from "@tanstack/react-query";
-import { IUserLogin } from "@/interfaces/User";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-toast-message";
 import login from "~/app/api/auth/login";
 import { Button } from "@/components/ui/button";
 import { Text } from "~/components/ui/text";
-import { TextInput } from "~/components/ui/text-input";
 import { Link, useRouter } from "expo-router";
+import FormInput from "../../ui/forms/form-input";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -50,42 +48,31 @@ export default function LoginForm() {
 
   return (
     <View className="gap-4">
-      <View>
-        <Text>E-mail:</Text>
-        <TextInput
-          placeholder="Digite seu e-mail"
-          onChangeText={(text) => setValue("email", text)}
-          style={{ borderBottomWidth: 1, marginBottom: 10 }}
-        />
-        {formState.errors.email && (
-          <Text style={{ color: "red" }}>{formState.errors.email.message}</Text>
-        )}
-      </View>
-      <View>
-        <Text>Senha:</Text>
-        <TextInput
-          placeholder="Digite sua senha"
-          secureTextEntry
-          onChangeText={(text) => setValue("password", text)}
-          style={{ borderBottomWidth: 1, marginBottom: 10 }}
-        />
-        {formState.errors.password && (
-          <Text style={{ color: "red" }}>
-            {formState.errors.password.message}
-          </Text>
-        )}
-      </View>
+      <FormInput
+        label="Email"
+        name="email"
+        placeholder="email@exemplo.com"
+        setValue={setValue}
+        errorMessage={form.formState.errors.email?.message}
+      />
+      <FormInput
+        label="Senha"
+        name="password"
+        placeholder="********"
+        setValue={setValue}
+        errorMessage={form.formState.errors.password?.message}
+      />
       <Button
-        disabled={isSubmiting}
+        isLoading={isSubmiting}
         onPress={handleSubmit(onSubmit)}
         variant="outline">
         <Text>Logar</Text>
       </Button>
       <View className="flex items-end">
-        <Link href={"/home"}>
-          <Button className="!px-0" variant="link">
-            <Text>Criar conta agora</Text>
-          </Button>
+        <Link href={"/create-account"}>
+          <Text className="text-foreground font-medium underline">
+            Criar conta agora
+          </Text>
         </Link>
       </View>
     </View>
