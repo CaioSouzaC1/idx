@@ -34,6 +34,7 @@ export default function LoginForm() {
         text1: data.message,
         text2: "🙋🏻‍♂️",
       });
+      setIsSubmiting(false);
       router.push("/home");
     },
     async onError() {

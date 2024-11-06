@@ -10,7 +10,7 @@ const api: AxiosInstance = axios.create({
 });
 
 api.interceptors.request.use(async (request) => {
-  const token = await SecureStore.getItemAsync("token");
+  const token = SecureStore.getItem("token");
   if (token) {
     request.headers.Authorization = `Bearer ${token}`;
   }

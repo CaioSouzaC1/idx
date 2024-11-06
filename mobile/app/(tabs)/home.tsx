@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { View } from "react-native";
 import IconAndTextLogo from "~/components/logo/icon-and-text-logo";
 import { Container } from "~/components/ui/container";
@@ -10,6 +11,9 @@ export default function HomePage() {
       <View>
         <Text>Livros.....</Text>
       </View>
+      <Link href="/">
+        <Text>red.....</Text>
+      </Link>
     </Container>
   );
 }

@@ -14,6 +14,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "~/lib/react-query";
 import Toast from "react-native-toast-message";
 import { ThemeToggle } from "~/components/ThemeToggle";
+import { AuthProvider } from "~/context/auth-context";
+import HeaderRight from "~/components/navigation/header-right";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -68,29 +70,31 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <QueryClientProvider client={queryClient}>
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-          <Stack.Screen
-            name="create-account"
-            options={{
-              headerBackVisible: true,
-              title: "Criar Conta",
-              headerRight: () => <ThemeToggle />,
-            }}
-          />
-        </Stack>
-        <Toast />
-      </QueryClientProvider>
-      <PortalHost />
+      <AuthProvider>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <QueryClientProvider client={queryClient}>
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+            <Stack.Screen
+              name="create-account"
+              options={{
+                headerBackVisible: true,
+                title: "Criar Conta",
+                headerRight: () => <HeaderRight />,
+              }}
+            />
+          </Stack>
+          <Toast />
+        </QueryClientProvider>
+        <PortalHost />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

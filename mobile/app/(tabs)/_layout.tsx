@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
+import HeaderRight from "~/components/navigation/header-right";
 import { TabBarIcon } from "~/components/navigation/TabBarIcon";
 import { ThemeToggle } from "~/components/ThemeToggle";
 
@@ -19,7 +20,7 @@ export default function TabLayout() {
               color={color}
             />
           ),
-          headerRight: () => <ThemeToggle />,
+          headerRight: () => <HeaderRight />,
         }}
       />
     </Tabs>
