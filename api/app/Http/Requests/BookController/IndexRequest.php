@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\BookController;
 
+use App\Helpers\Requests\Category\CategoryIdRuleHelper;
 use App\Helpers\Requests\Search\PageRuleHelper;
 use App\Helpers\Requests\Search\PerPageRuleHelper;
 use App\Helpers\Requests\Search\SearchRuleHelper;
@@ -20,6 +21,7 @@ class IndexRequest extends FormRequest
             ...SearchRuleHelper::rule(),
             ...PageRuleHelper::rule(),
             ...PerPageRuleHelper::rule(),
+            ...CategoryIdRuleHelper::rule('category_id', true)
         ];
     }
 

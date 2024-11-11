@@ -13,7 +13,6 @@ import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "~/lib/react-query";
 import Toast from "react-native-toast-message";
-import { ThemeToggle } from "~/components/ThemeToggle";
 import { AuthProvider } from "~/context/auth-context";
 import HeaderRight from "~/components/navigation/header-right";
 
@@ -29,7 +28,7 @@ const DARK_THEME: Theme = {
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
-} from 'expo-router';
+} from "expo-router";
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
@@ -40,17 +39,17 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     (async () => {
-      const theme = await AsyncStorage.getItem('theme');
-      if (Platform.OS === 'web') {
+      const theme = await AsyncStorage.getItem("theme");
+      if (Platform.OS === "web") {
         // Adds the background color to the html element to prevent white background on overscroll.
-        document.documentElement.classList.add('bg-background');
+        document.documentElement.classList.add("bg-background");
       }
       if (!theme) {
-        AsyncStorage.setItem('theme', colorScheme);
+        AsyncStorage.setItem("theme", colorScheme);
         setIsColorSchemeLoaded(true);
         return;
       }
-      const colorTheme = theme === 'dark' ? 'dark' : 'light';
+      const colorTheme = theme === "dark" ? "dark" : "light";
       if (colorTheme !== colorScheme) {
         setColorScheme(colorTheme);
         setAndroidNavigationBar(colorTheme);
@@ -87,6 +86,20 @@ export default function RootLayout() {
               options={{
                 headerBackVisible: true,
                 title: "Criar Conta",
+                headerRight: () => <HeaderRight />,
+              }}
+            />
+            <Stack.Screen
+              name="category"
+              options={{
+                title: "Categoria",
+                headerRight: () => <HeaderRight />,
+              }}
+            />
+            <Stack.Screen
+              name="book"
+              options={{
+                title: "Livro",
                 headerRight: () => <HeaderRight />,
               }}
             />

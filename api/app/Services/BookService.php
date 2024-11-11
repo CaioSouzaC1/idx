@@ -13,9 +13,12 @@ class BookService
     {
 
         $search = $data['search'] ?? '';
+        $categoryId = $data['category_id'] ?? '';
 
         return Book::when($search, function ($query) use ($search) {
             $query->where('id', 'like', '%$search%');
+        })->when($categoryId, function ($query) use ($categoryId) {
+            $query->where('category_id', '=', $categoryId);
         })->paginate(perPage: $data['per_page'], page: $data['page']);
     }
 
