@@ -64,9 +64,6 @@ export default function CategoryPage() {
             <ActivityIndicator size="small" className="text-foreground" />
           )}
 
-          <View className="flex-row gap-2 items-center">
-            <Text className="font-semibold text-lg">Teste</Text>
-          </View>
         </View>
       </ScrollView>
     </Container>
