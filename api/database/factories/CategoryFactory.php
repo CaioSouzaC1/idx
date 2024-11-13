@@ -17,9 +17,15 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+
+        $image = base_path('public/funnydog.jpeg');
+        $image = new UploadedFile($image, 'corinthians.jpg', 'image/jpeg', null, true);
+        $image = $image->storeAs('categories', "funnydog.jpeg");
+
         return [
             'name' => fake()->name(),
             'description' => fake()->sentence(),
+            'thumb_path' => $image
         ];
     }
 }

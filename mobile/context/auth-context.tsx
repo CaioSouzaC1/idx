@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
+import { NativeEventEmitter } from "react-native";
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -16,6 +17,7 @@ type AuthContextType = {
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const authEventEmitter = new NativeEventEmitter();
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -27,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const savedToken = SecureStore.getItem("token");
+      const savedToken = await SecureStore.getItemAsync("token");
       if (savedToken) {
         setToken(savedToken);
         return;
@@ -35,16 +37,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       router.push("/");
     };
     checkToken();
+
+    const handleLogoutEvent = () => logout();
+    const subscription = authEventEmitter.addListener(
+      "logout",
+      handleLogoutEvent
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const login = async (newToken: string) => {
-    SecureStore.setItem("token", newToken);
+    await SecureStore.setItemAsync("token", newToken);
     setToken(newToken);
   };
 
   const logout = async () => {
-    SecureStore.deleteItemAsync("token");
     setToken(null);
+    await SecureStore.deleteItemAsync("token");
     router.push("/");
   };
 
@@ -63,3 +75,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+export { authEventEmitter }; 

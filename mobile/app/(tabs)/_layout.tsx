@@ -22,6 +22,19 @@ export default function TabLayout() {
           headerRight: () => <HeaderRight />,
         }}
       />
+      <Tabs.Screen
+        name="my-readings"
+        options={{
+          title: "Minhas leituras",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "book" : "book-outline"}
+              color={color}
+            />
+          ),
+          headerRight: () => <HeaderRight />,
+        }}
+      />
     </Tabs>
   );
 }

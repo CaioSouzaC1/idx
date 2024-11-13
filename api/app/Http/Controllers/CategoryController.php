@@ -9,9 +9,7 @@ use App\Http\Requests\CategoryController\IndexRequest;
 use App\Http\Requests\CategoryController\ShowRequest;
 use App\Http\Requests\CategoryController\StoreRequest;
 use App\Http\Requests\CategoryController\UpdateRequest;
-use App\Models\Category;
 use App\Services\CategoryService;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

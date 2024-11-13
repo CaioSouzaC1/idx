@@ -13,7 +13,7 @@ export default function HeaderRight() {
   const { logout } = useAuth();
 
   return (
-    <View className="flex-row gap-4 pr-4">
+    <View className="flex-row gap-4 pr-2">
       <Button
         onPress={() => {
           const newTheme = isDarkColorScheme ? "light" : "dark";

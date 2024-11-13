@@ -53,7 +53,7 @@ class Book extends Model
     public function readers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_has_read_books', 'book_id', 'user_id')
-            ->withPivot('percentage')
+            ->withPivot('page')
             ->withTimestamps();
     }
 
@@ -63,6 +63,4 @@ class Book extends Model
             $query->with('category');
         });
     }
-
-
 }

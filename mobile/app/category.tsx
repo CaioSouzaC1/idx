@@ -48,22 +48,23 @@ export default function CategoryPage() {
             />
           </View>
 
-          {books ? (
-            books.data.total > 0 ? (
-              <View className="w-full">
-                {books.data.data.map((book: IBook) => (
-                  <BookCard key={book.id} book={book} />
-                ))}
-              </View>
+          <View className="pb-16 w-full">
+            {books ? (
+              books.data.total > 0 ? (
+                <View className="w-full">
+                  {books.data.data.map((book: IBook) => (
+                    <BookCard key={book.id} book={book} />
+                  ))}
+                </View>
+              ) : (
+                <View>
+                  <Text>👀 Nenhum livro encontrado</Text>
+                </View>
+              )
             ) : (
-              <View>
-                <Text>👀 Nenhum livro encontrado</Text>
-              </View>
-            )
-          ) : (
-            <ActivityIndicator size="small" className="text-foreground" />
-          )}
-
+              <ActivityIndicator size="small" className="text-foreground" />
+            )}
+          </View>
         </View>
       </ScrollView>
     </Container>

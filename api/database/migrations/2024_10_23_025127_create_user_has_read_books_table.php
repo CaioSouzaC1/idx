@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('book_id')->constrained('books')->onDelete('CASCADE');
             $table->foreignUuid('user_id')->constrained('users')->onDelete('CASCADE');
-            $table->float('percentage')->nullable();
+            $table->integer('page')->default(1);
             $table->timestamps();
         });
     }

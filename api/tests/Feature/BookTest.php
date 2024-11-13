@@ -38,7 +38,7 @@ it('Should delete a book', function () {
 
     $token = AdminInitiator::login()['token'];
 
-    $book = BookInitiator::create(CategoryInitiator::create());
+    $book = BookInitiator::create(category: CategoryInitiator::create());
 
     $response = $this->delete(
         '/api/book/' . $book->id,

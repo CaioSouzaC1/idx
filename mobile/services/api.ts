@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import * as SecureStore from "expo-secure-store";
+import { authEventEmitter } from "~/context/auth-context";
 
 const api: AxiosInstance = axios.create({
   baseURL: "http://10.0.2.2:8000/api",
@@ -16,5 +17,24 @@ api.interceptors.request.use(async (request) => {
   }
   return request;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.error === true &&
+      (error.response.data.message === "Token Expirado" ||
+        error.response.data.message === "Não Autorizado" ||
+        error.response.data.message === "Unauthorized")
+    ) {
+      await SecureStore.deleteItemAsync("token");
+      authEventEmitter.emit("logout");
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default api;

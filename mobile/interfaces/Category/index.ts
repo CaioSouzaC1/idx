@@ -1,4 +1,4 @@
-import { IApiRoot, IPaginate, ITimestamps } from "../Api";
+import { IPaginate, IPaginateRoot, ITimestamps } from "../Api";
 
 export interface ICategory extends ITimestamps {
   name: string;
@@ -7,7 +7,7 @@ export interface ICategory extends ITimestamps {
   full_path: string;
 }
 
-export interface IGetCategories extends IApiRoot {
+export interface IGetCategories extends IPaginateRoot {
   data: IPaginate & {
     data: ICategory[];
   };

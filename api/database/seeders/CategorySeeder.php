@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
         $image = new UploadedFile($image, 'corinthians.jpg', 'image/jpeg', null, true);
         $image = $image->storeAs('categories', "funnydog.jpeg");
 
-        Category::factory()->count(3)->create([
+        Category::factory()->count(1)->create([
             'thumb_path' => $image
         ]);
     }
