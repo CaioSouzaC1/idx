@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,9 +28,8 @@ class DatabaseSeeder extends Seeder
             'password' => 'corinthians'
         ]);
 
-        $this->call([
-            // CategorySeeder::class,
-            BookSeeder::class
+        $this->call([CategorySeeder::class,
+            // BookSeeder::class
         ]);
     }
 }

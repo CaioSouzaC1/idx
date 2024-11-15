@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Book;
 use App\Utils\Filename;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Smalot\PdfParser\Parser;
 
 class BookService
 {
@@ -24,13 +25,18 @@ class BookService
 
     public function store(array $data)
     {
+
         $thumbPath = $data['thumb']->storeAs('/books/thumbs', Filename::formatImageName($data['thumb']));
         $pdfPath = $data['pdf']->storeAs('/books', Filename::formatImageName($data['pdf']));
+
+        $parser = new Parser();
+        $pdf = $parser->parseFile(storage_path('app/public/' . $pdfPath));
+        $pageCount = count($pdf->getPages());
 
         unset($data['thumb']);
         unset($data['pdfPath']);
 
-        return Book::create([...$data, 'thumb_path' => $thumbPath, 'pdf_path' => $pdfPath]);
+        return Book::create([...$data, 'thumb_path' => $thumbPath, 'pdf_path' => $pdfPath, 'page_count' => $pageCount]);
     }
 
     public function destroy(array $data): bool

@@ -37,7 +37,8 @@ class BookFactory extends Factory
             'redirect_url' => fake()->url(),
             'category_id' => $category->id,
             'pdf_path' => $pdf,
-            'thumb_path' => $image
+            'thumb_path' => $image,
+            'page_count' => 10
         ];
     }
 }

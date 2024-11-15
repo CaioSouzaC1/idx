@@ -7,6 +7,6 @@ Route::middleware(['auth.api'])->controller(UserHasReadBookController::class)->g
     Route::post('/', 'store');
     Route::delete('/{id}', action: 'destroy');
     Route::put('/', action: 'update');
-    Route::get('/{id}', 'show');
+    Route::get('/show', 'show');
     Route::get('/', 'index');
 });

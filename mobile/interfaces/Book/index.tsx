@@ -11,6 +11,7 @@ export interface IBook extends ITimestamps {
   category: ICategory;
   full_path: string;
   pdf_full_path: string;
+  page_count: number;
 }
 
 export interface IGetBooks extends IApiRoot {

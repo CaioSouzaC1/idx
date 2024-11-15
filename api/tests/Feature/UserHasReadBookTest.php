@@ -77,7 +77,7 @@ it('Should index userHasReadBook', function () {
     );
 
     $response->assertStatus(200);
-})->only();
+});
 
 // it('Should update a userHasReadBook', function () {
 

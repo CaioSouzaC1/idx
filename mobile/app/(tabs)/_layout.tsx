@@ -23,6 +23,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="categories"
+        options={{
+          title: "Categorias",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "library" : "library-outline"}
+              color={color}
+            />
+          ),
+          headerRight: () => <HeaderRight />,
+        }}
+      />
+      <Tabs.Screen
         name="my-readings"
         options={{
           title: "Minhas leituras",

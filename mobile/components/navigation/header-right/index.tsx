@@ -48,7 +48,7 @@ export default function HeaderRight() {
           logout();
           Toast.show({
             type: "info",
-            text1: "Deslogado sucesso.",
+            text1: "Deslogado com sucesso.",
           });
         }}
         variant="outline"

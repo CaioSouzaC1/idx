@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('pdf_path');
             $table->string('thumb_path');
             $table->string('redirect_url')->nullable();
+            $table->integer('page_count');
             $table->foreignUuid('category_id')->constrained('categories')->onDelete('CASCADE');
             $table->timestamps();
             $table->softDeletes();

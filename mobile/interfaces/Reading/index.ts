@@ -1,4 +1,4 @@
-import { IPaginateRoot, IPaginate, ITimestamps } from "../Api";
+import { IPaginateRoot, IPaginate, ITimestamps, IApiRoot } from "../Api";
 import { IBook } from "../Book";
 
 export interface IRead extends ITimestamps {
@@ -12,4 +12,8 @@ export interface IGetReadings extends IPaginateRoot {
   data: IPaginate & {
     data: IRead[];
   };
+}
+
+export interface IShowReading extends IApiRoot {
+  data: IRead | null;
 }

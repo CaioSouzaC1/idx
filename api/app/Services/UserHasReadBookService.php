@@ -37,9 +37,9 @@ class UserHasReadBookService
         return UserHasReadBook::where('id', $data['id'])->delete();
     }
 
-    public function show(array $data): UserHasReadBook
+    public function show(array $data): UserHasReadBook|null
     {
-        return UserHasReadBook::where('id', $data['id'])->first();
+        return UserHasReadBook::where(['book_id' => $data['book_id'], 'user_id' => $data['user_id']])->first();
     }
 
     public function update(array $data): bool

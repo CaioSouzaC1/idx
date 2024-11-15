@@ -27,8 +27,8 @@ export default function CategoryPage() {
         className="gap-4">
         <View className="gap-4 items-center">
           <View className="flex-row gap-4 justify-between">
-            <View>
-              <Text className="font-semibold text-3xl ">{name}</Text>
+            <View className="flex-1">
+              <Text className="font-semibold text-3xl">{name}</Text>
               <Text className="max-w-xs line-clamp-4">{description}</Text>
             </View>
             <Image
@@ -58,7 +58,9 @@ export default function CategoryPage() {
                 </View>
               ) : (
                 <View>
-                  <Text>👀 Nenhum livro encontrado</Text>
+                  <Text className="text-center font-bold">
+                    Nenhum livro encontrado 👀
+                  </Text>
                 </View>
               )
             ) : (

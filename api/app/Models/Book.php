@@ -22,7 +22,8 @@ class Book extends Model
         'category_id',
         'pdf_path',
         'thumb_path',
-        'redirect_url'
+        'redirect_url',
+        'page_count'
     ];
 
     protected $appends = ['full_path', 'pdf_full_path'];

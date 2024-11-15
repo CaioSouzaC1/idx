@@ -103,6 +103,13 @@ export default function RootLayout() {
                 headerRight: () => <HeaderRight />,
               }}
             />
+            <Stack.Screen
+              name="reader"
+              options={{
+                title: "Lendo",
+                headerRight: () => <HeaderRight />,
+              }}
+            />
           </Stack>
           <Toast />
         </QueryClientProvider>

@@ -8,7 +8,7 @@ const TextInputClassContext = React.createContext<string | undefined>(
 );
 
 const textInputVariants = cva(
-  "text-base text-foreground bg-background placeholder:text-foreground",
+  "text-base text-foreground bg-background placeholder:text-foreground/40",
   {
     variants: {
       size: {

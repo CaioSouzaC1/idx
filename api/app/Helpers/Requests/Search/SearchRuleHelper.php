@@ -8,7 +8,7 @@ class SearchRuleHelper
     {
         return [
             'search' => [
-                'somtimes',
+                'sometimes',
                 'string',
             ],
         ];

@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\UserHasReadBookController;
 
+use App\Helpers\Requests\Book\BookIdRuleHelper;
+use App\Helpers\Requests\Common\UserIdRuleHelper;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ShowRequest extends FormRequest
 {
@@ -14,6 +17,15 @@ class ShowRequest extends FormRequest
     public function rules(): array
     {
         return [
+            ...UserIdRuleHelper::rule(),
+            ...BookIdRuleHelper::rule('book_id'),
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => Auth::id()
+        ]);
     }
 }

@@ -30,8 +30,10 @@ it('Should create a book', function () {
         ]
     );
 
+    dd($response->json());
+
     $response->assertStatus(200);
-});
+})->only();
 
 
 it('Should delete a book', function () {
