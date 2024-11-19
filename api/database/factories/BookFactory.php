@@ -38,7 +38,7 @@ class BookFactory extends Factory
             'category_id' => $category->id,
             'pdf_path' => $pdf,
             'thumb_path' => $image,
-            'page_count' => 10
+            'page_count' => 50
         ];
     }
 }

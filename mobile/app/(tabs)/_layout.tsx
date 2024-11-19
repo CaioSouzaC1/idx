@@ -23,6 +23,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="books"
+        options={{
+          title: "Livros",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "book" : "book-outline"}
+              color={color}
+            />
+          ),
+          headerRight: () => <HeaderRight />,
+        }}
+      />
+      <Tabs.Screen
         name="categories"
         options={{
           title: "Categorias",
@@ -41,7 +54,7 @@ export default function TabLayout() {
           title: "Minhas leituras",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "book" : "book-outline"}
+              name={focused ? "bookmarks" : "bookmarks-outline"}
               color={color}
             />
           ),

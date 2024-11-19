@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\Models\Book;
+use App\Models\UserHasReadBook;
 use App\Utils\Filename;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Smalot\PdfParser\Parser;
 
 class BookService
@@ -59,5 +62,27 @@ class BookService
         unset($data['pdf']);
 
         return Book::where('id', $data['id'])->update([...$data, 'thumb_path' => $thumbPath, 'pdf_path' => $pdfPath]);
+    }
+
+    public function mostRead(array $data)
+    {
+        return UserHasReadBook::query()
+            ->select('book_id', DB::raw('COUNT(*) as read_count'))
+            ->where('updated_at', '>=', Carbon::now()->subDays($data['day_quantity']))
+            ->groupBy('book_id')
+            ->orderByDesc('read_count')
+            ->paginate(perPage: $data['per_page'], page: $data['page']);
+    }
+
+    public function mostFinished(array $data)
+    {
+        return UserHasReadBook::query()
+            ->join('books', 'books.id', '=', 'user_has_read_books.book_id')
+            ->select('books.id as book_id', 'books.title', DB::raw('COUNT(user_has_read_books.id) as finished_count'))
+            ->whereRaw('user_has_read_books.page >= (books.page_count * 0.9)')
+            ->where('user_has_read_books.updated_at', '>=', Carbon::now()->subDays($data['day_quantity']))
+            ->groupBy('books.id', 'books.title')
+            ->orderByDesc('finished_count')
+            ->paginate(perPage: $data['per_page'], page: $data['page']);
     }
 }

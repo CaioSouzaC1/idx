@@ -6,6 +6,7 @@ use App\Builder\ReturnApi;
 use App\Exceptions\ApiException;
 use App\Http\Requests\CategoryController\DestroyRequest;
 use App\Http\Requests\CategoryController\IndexRequest;
+use App\Http\Requests\CategoryController\MostReadRequest;
 use App\Http\Requests\CategoryController\ShowRequest;
 use App\Http\Requests\CategoryController\StoreRequest;
 use App\Http\Requests\CategoryController\UpdateRequest;
@@ -100,6 +101,20 @@ class CategoryController extends Controller
             );
         } catch (\Exception $e) {
             throw new ApiException($e->getMessage() ?? "Erro ao deletar categoria", $e->getCode() ?? 400);
+        }
+    }
+
+    public function mostRead(MostReadRequest $request)
+    {
+        try {
+            return ReturnApi::success(
+                $this->categoryService->mostRead(
+                    $request->validated(),
+                ),
+                'Categorias mais lidas consultados com sucesso!'
+            );
+        } catch (\Exception $e) {
+            throw new ApiException($e->getMessage() ?? 'Erro ao consultar categorias mais lidos.', $e->getCode() ?? 400);
         }
     }
 }

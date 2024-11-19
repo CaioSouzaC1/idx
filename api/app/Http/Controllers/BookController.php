@@ -6,6 +6,7 @@ use App\Builder\ReturnApi;
 use App\Exceptions\ApiException;
 use App\Http\Requests\BookController\DestroyRequest;
 use App\Http\Requests\BookController\IndexRequest;
+use App\Http\Requests\BookController\MostReadRequest;
 use App\Http\Requests\BookController\ShowRequest;
 use App\Http\Requests\BookController\StoreRequest;
 use App\Http\Requests\BookController\UpdateRequest;
@@ -99,6 +100,34 @@ class BookController extends Controller
             );
         } catch (\Exception $e) {
             throw new ApiException($e->getMessage() ?? 'Erro ao deletar livro.', $e->getCode() ?? 400);
+        }
+    }
+
+    public function mostRead(MostReadRequest $request)
+    {
+        try {
+            return ReturnApi::success(
+                $this->bookService->mostRead(
+                    $request->validated(),
+                ),
+                'Livros mais lidos consultados com sucesso!'
+            );
+        } catch (\Exception $e) {
+            throw new ApiException($e->getMessage() ?? 'Erro ao consultar livros mais lidos.', $e->getCode() ?? 400);
+        }
+    }
+
+    public function mostFinished(MostReadRequest $request)
+    {
+        try {
+            return ReturnApi::success(
+                $this->bookService->mostFinished(
+                    $request->validated(),
+                ),
+                'Livros mais finalizados consultados com sucesso!'
+            );
+        } catch (\Exception $e) {
+            throw new ApiException($e->getMessage() ?? 'Erro ao consultar livros mais finalizados.', $e->getCode() ?? 400);
         }
     }
 }

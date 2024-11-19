@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
-import CategoryCard from "~/components/category/category-card";
+import BookCard from "~/components/books/book-card";
 import InputSearch from "~/components/search/input-search";
 import { Container } from "~/components/ui/container";
 import Pagination from "~/components/ui/pagination";
 import { Skeleton } from "~/components/ui/skeleton";
-import { Text } from "~/components/ui/text";
-import { useGetCategories } from "~/hooks/categories/use-get-categories";
-import { ICategory } from "~/interfaces/Category";
+import { useGetBooks } from "~/hooks/books/use-get-books";
+import { IBook } from "~/interfaces/Book";
 
-export default function CategoriesPage() {
+export default function BooksPages() {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
 
-  const { categories } = useGetCategories({
+  const { books } = useGetBooks({
     search,
     page,
   });
@@ -22,7 +21,7 @@ export default function CategoriesPage() {
     <Container className="gap-4">
       <View className="h-8">
         <InputSearch
-          placeholder="Romance"
+          placeholder="Ordem da fenix"
           setSearch={setSearch}
           setPage={setPage}
         />
@@ -32,20 +31,20 @@ export default function CategoriesPage() {
         showsVerticalScrollIndicator={false}
         className="gap-4">
         <View>
-          {categories
-            ? categories.data.data.map((category: ICategory) => (
-                <CategoryCard key={category.id} category={category} />
+          {books
+            ? books.data.data.map((book: IBook) => (
+                <BookCard key={book.id} book={book} />
               ))
             : Array.from({ length: 10 }).map((_, i) => (
-                <Skeleton key={i} className="w-full h-28 mb-4" />
+                <Skeleton key={i} className="w-full h-20 mb-4" />
               ))}
         </View>
-        {categories && (
+        {books && (
           <Pagination
             pageIndex={page}
             setPage={setPage}
-            totalCount={categories.data.total}
-            perPage={categories.data.per_page}
+            totalCount={books.data.total}
+            perPage={books.data.per_page}
           />
         )}
       </ScrollView>

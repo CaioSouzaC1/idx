@@ -4,8 +4,11 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\UserHasReadBook;
 use App\Utils\Filename;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
@@ -46,5 +49,21 @@ class CategoryService
         unset($data['thumb']);
 
         return Category::where('id', $data['id'])->update([...$data, 'thumb_path' => $thumbPath]);
+    }
+
+    public function mostRead(array $data)
+    {
+        return UserHasReadBook::query()
+        ->join('books', 'books.id', '=', 'user_has_read_books.book_id')
+        ->join('categories', 'categories.id', '=', 'books.category_id')
+        ->select(
+            'books.category_id',
+            'categories.name as category_name',
+            DB::raw('COUNT(user_has_read_books.id) as read_count')
+        )
+            ->where('user_has_read_books.updated_at', '>=', Carbon::now()->subDays($data['day_quantity']))
+            ->groupBy('books.category_id', 'categories.name')
+            ->orderByDesc('read_count')
+            ->paginate(perPage: $data['per_page'], page: $data['page']);
     }
 }

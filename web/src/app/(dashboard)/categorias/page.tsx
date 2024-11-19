@@ -14,6 +14,7 @@ import { useState } from "react";
 import { ICategory } from "@/interfaces/Category";
 import CreateCategoryDialog from "@/components/categories/create-category-dialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PaginationFull } from "@/components/ui/pagination";
 
 export default function CategoriesPage() {
   const { categories } = useGetCategories({});
@@ -52,6 +53,15 @@ export default function CategoriesPage() {
           )}
         </div>
       </div>
+      {categories && (
+        <div className="p-4">
+          <PaginationFull
+            pageIndex={categories.data.current_page}
+            totalCount={categories.data.total}
+            perPage={categories.data.per_page}
+          />
+        </div>
+      )}
     </Layout>
   );
 }

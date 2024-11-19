@@ -8,21 +8,27 @@ import { IBook } from "~/interfaces/Book";
 import BookCard from "~/components/books/book-card";
 import { BookDown } from "lucide-react-native";
 import { useColorScheme } from "~/lib/useColorScheme";
+import { Skeleton } from "~/components/ui/skeleton";
+import { useState } from "react";
+import Pagination from "~/components/ui/pagination";
 
 export default function CategoryPage() {
   const { isDarkColorScheme } = useColorScheme();
+
+  const [page, setPage] = useState<number>(1);
 
   const params = useLocalSearchParams();
   const { id, name, description, full_path } = params as unknown as ICategory;
 
   const { books } = useGetBooks({
     category_id: id,
+    page,
   });
 
   return (
     <Container>
       <ScrollView
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
         className="gap-4">
         <View className="gap-4 items-center">
@@ -48,7 +54,7 @@ export default function CategoryPage() {
             />
           </View>
 
-          <View className="pb-16 w-full">
+          <View className="w-full">
             {books ? (
               books.data.total > 0 ? (
                 <View className="w-full">
@@ -64,10 +70,20 @@ export default function CategoryPage() {
                 </View>
               )
             ) : (
-              <ActivityIndicator size="small" className="text-foreground" />
+              Array.from({ length: 10 }).map((_, i) => (
+                <Skeleton key={i} className="w-full h-32 mb-4" />
+              ))
             )}
           </View>
         </View>
+        {books && (
+          <Pagination
+            pageIndex={page}
+            setPage={setPage}
+            totalCount={books.data.total}
+            perPage={books.data.per_page}
+          />
+        )}
       </ScrollView>
     </Container>
   );

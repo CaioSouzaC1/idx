@@ -67,6 +67,7 @@ export default function CreateAccountForm() {
         label="Senha"
         name="password"
         placeholder="********"
+        type="password"
         setValue={setValue}
         errorMessage={form.formState.errors.password?.message}
       />

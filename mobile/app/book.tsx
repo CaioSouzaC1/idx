@@ -13,6 +13,7 @@ import { createReading } from "./api/readings/create-reading";
 import { queryClient } from "~/lib/react-query";
 import { useShowReading } from "~/hooks/readings/use-show-reading";
 import { showReading } from "./api/readings/show-reading";
+import { cn } from "~/lib/utils";
 
 export default function BookPage() {
   const params = useLocalSearchParams();
@@ -115,44 +116,40 @@ export default function BookPage() {
         <Text className="text-sm text-center">{synopsis}</Text>
       </View>
 
-      <View className="flex-row justify-between gap-3">
-        <Button
-          className="flex-1"
-          disabled={isSubmiting || !reading}
-          isLoading={isSubmiting || !reading}
-          onPress={() => handleStartRead()}>
-          <Text>
-            {reading
-              ? !reading.data
-                ? "Iniciar leitura"
-                : "Continuar leitura"
-              : "Carregando..."}
-          </Text>
-        </Button>
+      <View className="flex-row justify-between flex-wrap">
+        <View
+          className={cn("flex-1", {
+            "pr-2": redirect_url,
+          })}>
+          <Button
+            className="w-full"
+            disabled={isSubmiting || !reading}
+            isLoading={isSubmiting || !reading}
+            onPress={() => handleStartRead()}>
+            <Text>
+              {reading
+                ? !reading.data
+                  ? "Iniciar leitura"
+                  : "Continuar leitura"
+                : "Carregando..."}
+            </Text>
+          </Button>
+        </View>
 
         {redirect_url && (
-          <Button
-            disabled={isSubmiting}
-            className="flex-1"
-            variant="secondary"
-            onPress={() => {
-              Linking.openURL(redirect_url);
-            }}>
-            <Text>Comprar livro</Text>
-          </Button>
+          <View className="pl-2 w-1/2">
+            <Button
+              disabled={isSubmiting}
+              className="w-full"
+              variant="secondary"
+              onPress={() => {
+                Linking.openURL(redirect_url);
+              }}>
+              <Text>Comprar livro</Text>
+            </Button>
+          </View>
         )}
       </View>
-
-      {/* <View style={styles.container}>
-        
-        <Progress value={progressPercentage} />
-        <View className="flex-row justify-between w-full">
-          <Text>
-            Página {page}/{numberOfPages}
-          </Text>
-          <Text>{progressPercentage.toFixed(2)}% Lido</Text>
-        </View>
-      </View> */}
     </Container>
   );
 }

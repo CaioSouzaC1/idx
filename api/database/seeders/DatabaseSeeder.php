@@ -19,17 +19,19 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => 'corinthians'
+            'password' => 'corinthians',
+            'type' => 'admin'
         ]);
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'a@a.com',
-            'password' => 'corinthians'
+            'password' => 'corinthians',
+            'type' => 'client'
         ]);
 
         $this->call([CategorySeeder::class,
-            // BookSeeder::class
+            BookSeeder::class
         ]);
     }
 }

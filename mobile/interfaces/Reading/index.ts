@@ -6,6 +6,7 @@ export interface IRead extends ITimestamps {
   book_id: string;
   page: number;
   user_id: string;
+  read_count?: number;
 }
 
 export interface IGetReadings extends IPaginateRoot {

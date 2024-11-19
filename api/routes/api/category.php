@@ -11,6 +11,7 @@ Route::controller(CategoryController::class)->group(function () {
 })->middleware(['user.type:admin']);
 
 Route::controller(CategoryController::class)->group(function () {
+    Route::get('/most-read', action: 'mostRead');
     Route::get('/{id}', 'show');
     Route::get('/', 'index');
 });

@@ -29,7 +29,7 @@ const textInputVariants = cva(
   }
 );
 
-type CustomTextInputProps = TextInputProps &
+export type CustomTextInputProps = TextInputProps &
   VariantProps<typeof textInputVariants> & {
     className?: string;
   };

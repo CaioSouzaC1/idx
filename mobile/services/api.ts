@@ -25,9 +25,7 @@ api.interceptors.response.use(
       error.response &&
       error.response.data &&
       error.response.data.error === true &&
-      (error.response.data.message === "Token Expirado" ||
-        error.response.data.message === "Não Autorizado" ||
-        error.response.data.message === "Unauthorized")
+      error.response.data.message === "Token Expirado"
     ) {
       await SecureStore.deleteItemAsync("token");
       authEventEmitter.emit("logout");

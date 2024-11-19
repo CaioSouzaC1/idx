@@ -23,14 +23,15 @@ class BookSeeder extends Seeder
         $pdf = new UploadedFile($pdf, 'corinthians.pdf', 'application/pdf', null, true);
         $pdf = $pdf->storeAs('/books', "war-art.pdf");
 
-        $category = Category::factory()->create([
-            'thumb_path' => $image
-        ]);
+        $categories = Category::all();
 
-        Book::factory()->count(3)->create([
-            'category_id' => $category->id,
-            'pdf_path' => $pdf,
-            'thumb_path' => $image
-        ]);
+        foreach ($categories as $category) {
+            Book::factory()->count(2)->create([
+                'category_id' => $category->id,
+                'pdf_path' => $pdf,
+                'thumb_path' => $image
+            ]);
+        }
+
     }
 }
