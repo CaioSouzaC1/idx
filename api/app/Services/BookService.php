@@ -44,6 +44,8 @@ class BookService
 
     public function destroy(array $data): bool
     {
+        UserHasReadBook::where(['book_id' => $data['id']])->delete();
+
         return Book::where('id', $data['id'])->delete();
     }
 

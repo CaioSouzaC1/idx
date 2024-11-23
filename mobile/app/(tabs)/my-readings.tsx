@@ -78,7 +78,7 @@ export default function MyReadingsPage() {
                         }
                       )}>
                       <CardHeader className="px-0">
-                        <CardTitle className="line-clamp-1">
+                        <CardTitle className="line-clamp-1 max-w-[82%]">
                           {read.book.title}
                         </CardTitle>
                         <CardDescription>

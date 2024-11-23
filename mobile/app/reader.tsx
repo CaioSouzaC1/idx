@@ -86,9 +86,6 @@ export default function ReaderPage() {
             source={{ uri: pdf_full_path }}
             horizontal={true}
             enablePaging={true}
-            onPageSingleTap={(page) => {
-              console.log(page);
-            }}
           />
         </View>
       </View>

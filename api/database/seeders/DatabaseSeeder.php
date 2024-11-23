@@ -30,8 +30,15 @@ class DatabaseSeeder extends Seeder
             'type' => 'client'
         ]);
 
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'b@b.com',
+            'password' => 'corinthians',
+            'type' => 'client'
+        ]);
+
         $this->call([CategorySeeder::class,
-            BookSeeder::class
+            // BookSeeder::class
         ]);
     }
 }

@@ -90,18 +90,16 @@ export default function BooksPage() {
                     <DialogHeader>
                       <DialogTitle>{book.title}</DialogTitle>
                       <DialogDescription>{book.synopsis}</DialogDescription>
-                      <div className="grid grid-cols-2">
-                        <div className="grid grid-cols-2 gap-4">
-                          <Button
-                            onClick={() => {
-                              deleteBookFn({ id: book.id });
-                            }}
-                            variant="destructive"
-                            className="w-full"
-                            size="icon">
-                            <Trash2 />
-                          </Button>
-                        </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <Button
+                          onClick={() => {
+                            deleteBookFn({ id: book.id });
+                          }}
+                          variant="destructive"
+                          className="w-full"
+                          size="icon">
+                          <Trash2 />
+                        </Button>
                         <Button className="!p-0">
                           <LinkPreview
                             url={book.pdf_full_path}

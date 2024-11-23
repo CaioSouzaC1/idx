@@ -37,8 +37,12 @@ export default function CreateAccountForm() {
       setIsSubmiting(false);
       router.push("/home");
     },
-    async onError() {
+    async onError(data) {
       setIsSubmiting(false);
+      Toast.show({
+        type: "error",
+        text1: data.message,
+      });
     },
   });
 

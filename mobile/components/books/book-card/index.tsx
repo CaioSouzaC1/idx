@@ -5,8 +5,15 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { Text } from "~/components/ui/text";
 import { IBook } from "~/interfaces/Book";
+import { cn } from "~/lib/utils";
 
-export default function BookCard({ book }: { book: IBook }) {
+export default function BookCard({
+  book,
+  simple,
+}: {
+  book: IBook;
+  simple?: boolean;
+}) {
   const router = useRouter();
 
   function handlePaginate() {
@@ -25,13 +32,22 @@ export default function BookCard({ book }: { book: IBook }) {
           <View className="flex-row gap-4">
             <Image
               source={{ uri: book.full_path }}
-              className="aspect-[5/8] h-40 rounded-lg"
+              className={cn("aspect-[5/8] h-40 rounded-lg", {
+                "h-20": simple,
+              })}
               resizeMode="cover"
             />
             <View className="justify-between flex-1">
               <View>
-                <Text className="font-bold text-xl">{book.title}</Text>
-                <Text className="text-sm line-clamp-4">{book.synopsis}</Text>
+                <Text
+                  className={cn("font-bold text-xl", {
+                    "line-clamp-1": simple,
+                  })}>
+                  {book.title}
+                </Text>
+                {!simple && (
+                  <Text className="text-sm line-clamp-4">{book.synopsis}</Text>
+                )}
               </View>
               <View>
                 <Button

@@ -12,7 +12,7 @@ export default function CategoryCarousel() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View className="items-center justify-center">
       <Text className="font-bold text-3xl my-4">Categorias</Text>
       {categories && (
         <FlatList

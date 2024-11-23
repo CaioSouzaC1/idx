@@ -37,8 +37,12 @@ export default function LoginForm() {
       setIsSubmiting(false);
       router.push("/home");
     },
-    async onError() {
+    async onError(data) {
       setIsSubmiting(false);
+      Toast.show({
+        type: "error",
+        text1: data.message,
+      });
     },
   });
 
